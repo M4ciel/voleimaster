@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+
+# Builds
+dist/
+build/
+.next/
+.out/
+.expo/
+web-build/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+
+# MacOS
+.DS_Store
+
+# Husky
+.husky/_/
+
+# Expo
+*.tgz
+.expo-shared/
+
+# Testes e coverage
+coverage/
+
+# DBT / Data tools (se aplicável)
+dbt_modules/
+target/
+manifest.json
+catalog.json
+run_results.json
+
+# Others
+*.sqlite
+*.db
+*.zip
