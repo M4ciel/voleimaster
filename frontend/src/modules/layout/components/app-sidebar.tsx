@@ -1,5 +1,6 @@
 "use client";
 
+import { OrganizationsSwitcher } from "@/modules/organizations/components/organizations-switcher";
 import {
 	Sidebar,
 	SidebarContent,
@@ -8,7 +9,6 @@ import {
 	SidebarGroupLabel,
 	SidebarHeader,
 } from "../../../components/ui/sidebar";
-import { TeamSwitcher } from "../../team/components/team-switcher";
 import { useSidebarHook } from "../hooks/use-sidebar";
 import { NavMain } from "./nav-main";
 import { NavSecondary } from "./nav-secondary";
@@ -16,12 +16,13 @@ import { NavSecondary } from "./nav-secondary";
 export const AppSidebar = ({
 	...props
 }: React.ComponentProps<typeof Sidebar>) => {
-	const { navFinanceiroItems, navMainItems, navSecondaryItems, teams } =
+	const { navFinanceiroItems, navMainItems, navSecondaryItems } =
 		useSidebarHook();
+
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
-				<TeamSwitcher teams={teams} />
+				<OrganizationsSwitcher />
 			</SidebarHeader>
 
 			<SidebarContent>

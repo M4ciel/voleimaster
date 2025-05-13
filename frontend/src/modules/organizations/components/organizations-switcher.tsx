@@ -17,21 +17,39 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-	useSidebar,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { useOrganizationsSwitcher } from "../hooks/use-organizations-switcher";
+import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
-type Team = {
-	name: string;
-	logo: string;
-	plan: string;
-};
+export const OrganizationsSwitcher = () => {
+	const {
+		isMobile,
+		isLoading,
+		activeOrganization,
+		setActiveOrganization,
+		organizations,
+	} = useOrganizationsSwitcher();
 
-export const TeamSwitcher = ({ teams }: { teams: Team[] }) => {
-	const { isMobile } = useSidebar();
-	const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+	if (isLoading)
+		return (
+			<SidebarMenu>
+				<SidebarMenuItem>
+					<Skeleton className="h-10 w-full rounded-md" />
+				</SidebarMenuItem>
+			</SidebarMenu>
+		);
 
-	if (!activeTeam) return null;
+	if (organizations.length === 0)
+		return (
+			<Button variant="outline" className="w-full">
+				Criar organização
+			</Button>
+		);
+
+	if (!activeOrganization) return null;
 
 	return (
 		<SidebarMenu>
@@ -44,19 +62,19 @@ export const TeamSwitcher = ({ teams }: { teams: Team[] }) => {
 						>
 							<Avatar>
 								<AvatarImage
-									src={activeTeam.logo}
-									alt={activeTeam.name}
+									src={activeOrganization.logo}
+									alt={activeOrganization.name}
 								/>
 								<AvatarFallback>
-									{activeTeam.name[0]}
+									{activeOrganization.name[0]}
 								</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
 								<span className="truncate font-semibold">
-									{activeTeam.name}
+									{activeOrganization.name}
 								</span>
 								<span className="truncate text-xs">
-									{activeTeam.plan}
+									{activeOrganization.plan}
 								</span>
 							</div>
 							<ChevronsUpDown className="ml-auto" />
@@ -69,24 +87,26 @@ export const TeamSwitcher = ({ teams }: { teams: Team[] }) => {
 						sideOffset={4}
 					>
 						<DropdownMenuLabel className="text-muted-foreground text-xs">
-							Equipes
+							Organizações
 						</DropdownMenuLabel>
-						{teams.map((team, index) => (
+						{organizations.map((organization, index) => (
 							<DropdownMenuItem
-								key={team.name}
-								onClick={() => setActiveTeam(team)}
+								key={organization.name}
+								onClick={() =>
+									setActiveOrganization(organization)
+								}
 								className="gap-2 p-2"
 							>
 								<Avatar>
 									<AvatarImage
-										src={team.logo}
-										alt={team.name}
+										src={organization.logo}
+										alt={organization.name}
 									/>
 									<AvatarFallback>
-										{team.name[0]}
+										{organization.name[0]}
 									</AvatarFallback>
 								</Avatar>
-								{team.name}
+								{organization.name}
 								<DropdownMenuShortcut>
 									⌘{index + 1}
 								</DropdownMenuShortcut>
@@ -97,9 +117,12 @@ export const TeamSwitcher = ({ teams }: { teams: Team[] }) => {
 							<div className="bg-background flex size-6 items-center justify-center rounded-md border">
 								<Plus className="size-4" />
 							</div>
-							<div className="text-muted-foreground font-medium">
+							<Link
+								href="/dashboard/organizations/new"
+								className="text-muted-foreground font-medium"
+							>
 								Adicionar organizações
-							</div>
+							</Link>
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
