@@ -6,22 +6,8 @@ import {
 	SettingsIcon,
 	UsersIcon,
 } from "lucide-react";
-import { useState } from "react";
 
 export const useSidebarHook = () => {
-	const [teams, setTeams] = useState([
-		{
-			name: "White Dragons ForFun",
-			logo: "/team/forfun.png",
-			plan: "Free",
-		},
-		{
-			name: "White Dragons Treinos",
-			logo: "/team/treino.png",
-			plan: "Pro",
-		},
-	]);
-
 	const menu = {
 		navMainItems: [
 			{
@@ -65,6 +51,5 @@ export const useSidebarHook = () => {
 		navMainItems: menu.navMainItems,
 		navFinanceiroItems: menu.navFinanceiroItems,
 		navSecondaryItems: menu.navSecondaryItems,
-		teams,
 	};
 };

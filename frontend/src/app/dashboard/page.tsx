@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/page-header";
 import {
 	DashboardChartSection,
 	DashboardEventsTable,
@@ -8,15 +9,10 @@ import {
 const DashboardPage = () => {
 	return (
 		<div className="grid h-full grid-cols-2 gap-4 lg:grid-cols-4">
-			<header className="col-span-full">
-				<h2 className="text-primary text-4xl font-bold">
-					Resumo da Organização
-				</h2>
-				<p className="text-foreground text-sm">
-					Aqui você gerencia todas as suas organizações, eventos e
-					jogadores.
-				</p>
-			</header>
+			<PageHeader
+				title="Resumo da Organização"
+				description="Aqui você gerencia todas as suas organizações, eventos e jogadores."
+			/>
 			<DashboardKpiGrid />
 			<DashboardChartSection />
 
